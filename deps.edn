@@ -1,0 +1,25 @@
+{:paths ["src" "resources"]
+ :deps {org.clojure/clojure {:mvn/version "1.12.1"}
+        cljfx/cljfx {:mvn/version "1.7.24"}
+        org.openjfx/javafx-controls {:mvn/version "19"}
+        org.openjfx/javafx-fxml {:mvn/version "19"}}
+
+ :aliases
+ {:dev {:extra-paths ["dev"]
+        :extra-deps {org.clojure/tools.namespace {:mvn/version "1.4.4"}
+                     org.clojure/tools.deps.alpha {:mvn/version "0.15.1244"}}}
+
+ :test {:extra-paths ["test"]
+        :extra-deps {org.clojure/test.check {:mvn/version "1.1.1"}}}
+
+  :uberjar {:replace-deps {org.clojure/clojure {:mvn/version "1.12.1"}
+                           cljfx/cljfx {:mvn/version "1.7.24"}
+                           org.openjfx/javafx-controls {:mvn/version "19"}
+                           org.openjfx/javafx-fxml {:mvn/version "19"}}
+            :exec-fn clojure.tools.build/uber
+            :exec-args {:basis (create-basis {:project "deps.edn"})
+                        :lib ladder-diagram/ladder-diagram
+                        :main ladder-diagram-clj.core
+                        :uber-file "target/ladder-diagram.jar"}}
+
+  :run {:main-opts ["-m" "ladder-diagram-clj.core"]}}}
