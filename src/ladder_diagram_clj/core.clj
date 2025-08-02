@@ -52,6 +52,19 @@
     (elem/falling-edge-contact "Stop")
     (elem/reset-coil "Motor"))))
 
+(defn create-three-wire-example
+  "Create a three-wire control example"
+  []
+  (ladder/ladder
+   (ladder/rung
+    (elem/contact "Stop")
+    (ladder/branch
+     (ladder/rung
+      (elem/contact "Start"))
+     (ladder/rung
+      (elem/contact "Motor")))
+    (elem/coil "Motor"))))
+
 (defn demo-ascii-rendering
   "Demonstrate ASCII rendering capabilities"
   []
@@ -65,7 +78,13 @@
 
   (println "=== Complex Example ===")
   (println (elem/render-ascii (create-complex-example)))
+  (println)
+
+  (println "=== Three-Wire Example ===")
+  (println (elem/render-ascii (create-three-wire-example)))
   (println))
+
+
 
 (defn -main
   "Main entry point - can run in GUI or CLI mode"
@@ -122,8 +141,13 @@
   ;; Show available elements
   (show-elements)
 
+
   ;; Create and print a complex example
   (println (elem/render-ascii (create-complex-example)))
 
+  ;; Create and print a three-wire example
+  (println (elem/render-ascii (create-three-wire-example)))
+
   ;; Stop the GUI
-  (ui/stop-app!))
+  (ui/stop-app!)
+  (demo-ascii-rendering))
