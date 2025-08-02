@@ -12,9 +12,13 @@
 (def *state
   (atom {:ladder (ladder/ladder
                   (ladder/rung
-                   (elem/contact "In1")
-                   (elem/contact "In2")
-                   (elem/coil "Out1")))
+                   (elem/contact "Stop")
+                   (ladder/branch
+                    (ladder/rung
+                     (elem/contact "Start"))
+                    (ladder/rung
+                     (elem/contact "Motor")))
+                   (elem/coil "Motor")))
          :selected-element nil
          :view-mode :ascii
          :zoom 1.0}))
